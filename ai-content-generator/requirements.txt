@@ -1,0 +1,7 @@
+django
+djangorestframework
+django-cors-headers
+python-dotenv
+openai
+psycopg2-binary
+djangorestframework-simplejwt
