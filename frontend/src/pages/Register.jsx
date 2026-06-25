@@ -21,9 +21,15 @@ function Register() {
 
     try {
       await API.post("/auth/register/", form);
-      navigate("/login", {
-        state: { message: "Account created. Sign in to start generating content." },
+      const loginResponse = await API.post("/auth/login/", {
+        username: form.username,
+        password: form.password,
       });
+
+      localStorage.setItem("access", loginResponse.data.access);
+      localStorage.setItem("refresh", loginResponse.data.refresh);
+
+      navigate("/dashboard");
     } catch (err) {
       setError(getApiError(err, "Could not create your account."));
     } finally {
@@ -88,7 +94,7 @@ function Register() {
         />
 
         <button className="btn" disabled={loading}>
-          {loading ? "Creating account..." : "Register"}
+          {loading ? "Creating account..." : "Register and Continue"}
         </button>
 
         <p className="auth-switch">
