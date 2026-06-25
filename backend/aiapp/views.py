@@ -8,7 +8,14 @@ from rest_framework.permissions import IsAuthenticated
 from .models import GeneratedContent
 from .serializers import GeneratedContentSerializer
 
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+def get_openai_client():
+    api_key = os.getenv("OPENAI_API_KEY")
+
+    if not api_key:
+        return None
+
+    return OpenAI(api_key=api_key)
+
 
 class GenerateContentView(APIView):
     permission_classes = [IsAuthenticated]
@@ -27,6 +34,11 @@ class GenerateContentView(APIView):
         """
 
         try:
+            client = get_openai_client()
+
+            if client is None:
+                raise RuntimeError("OPENAI_API_KEY is not configured")
+
             ai_response = client.chat.completions.create(
                 model="gpt-4o-mini",
                 messages=[
