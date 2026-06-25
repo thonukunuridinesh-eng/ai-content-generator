@@ -1,196 +1,111 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Sparkles, Bot, PenLine, Mail } from "lucide-react";
+import { ArrowRight, Bot, CheckCircle2, Mail, PenLine, Sparkles } from "lucide-react";
+
+const features = [
+  "Draft blogs, emails, and LinkedIn posts",
+  "Keep recent generations in your workspace",
+  "Copy polished output when it is ready",
+];
 
 function Landing() {
   return (
-    <div style={{ minHeight: "100vh", overflow: "hidden" }}>
-      <nav style={styles.nav}>
-        <motion.h2
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="gradient-text"
-        >
+    <div className="landing-page">
+      <nav className="site-nav">
+        <Link to="/" className="brand gradient-text">
           AI Writer Pro
-        </motion.h2>
+        </Link>
 
-        <div style={styles.navLinks}>
+        <div className="nav-links">
           <Link to="/login">Login</Link>
-          <Link to="/register" className="btn">Start Free</Link>
+          <Link to="/register" className="btn btn-small">
+            Start Free
+          </Link>
         </div>
       </nav>
 
-      <section style={styles.hero}>
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
+      <main className="landing-hero">
+        <motion.section
+          className="hero-copy"
+          initial={{ opacity: 0, y: 28 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          style={styles.heroText}
+          transition={{ duration: 0.7 }}
         >
-          <div style={styles.badge}>
-            <Sparkles size={18} /> AI SaaS for Businesses
+          <div className="badge">
+            <Sparkles size={18} /> AI content studio for business teams
           </div>
 
-          <h1 style={styles.title}>
-            Create Premium Business Content with{" "}
-            <span className="gradient-text">AI Power</span>
-          </h1>
+          <h1>Create better business content in fewer drafts.</h1>
 
-          <p style={styles.subtitle}>
-            Generate blogs, emails, LinkedIn posts and marketing content in seconds.
-            Built with Django, React, and OpenAI API.
+          <p>
+            Turn rough ideas into polished blogs, launch emails, and LinkedIn posts with a
+            focused writing dashboard built for speed and reuse.
           </p>
 
-          <div style={styles.heroButtons}>
-            <Link to="/register" className="btn">Get Started</Link>
-            <Link to="/login" style={styles.secondaryBtn}>Login</Link>
+          <div className="hero-actions">
+            <Link to="/register" className="btn">
+              Get Started <ArrowRight size={18} />
+            </Link>
+            <Link to="/login" className="btn btn-secondary">
+              Login
+            </Link>
           </div>
-        </motion.div>
 
-        <motion.div
-          className="glass"
-          style={styles.aiCard}
-          initial={{ opacity: 0, scale: 0.8, rotate: -5 }}
-          animate={{ opacity: 1, scale: 1, rotate: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
+          <div className="feature-list" aria-label="Product highlights">
+            {features.map((feature) => (
+              <span key={feature}>
+                <CheckCircle2 size={17} /> {feature}
+              </span>
+            ))}
+          </div>
+        </motion.section>
+
+        <motion.aside
+          className="product-preview glass"
+          initial={{ opacity: 0, y: 28 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.15 }}
+          aria-label="AI Writer Pro dashboard preview"
         >
-          <div style={styles.cardHeader}>
-            <Bot size={24} color="#7c3aed" />
-            <span>AI Generation Sandbox</span>
+          <div className="preview-topbar">
+            <div>
+              <span />
+              <span />
+              <span />
+            </div>
+            <strong>Generation Sandbox</strong>
           </div>
-          <div style={styles.cardRow}>
-            <PenLine size={16} color="#06b6d4" />
-            <span style={{ color: "#94a3b8" }}>Blog Outline Blueprint</span>
+
+          <div className="preview-prompt">
+            <div>
+              <PenLine size={18} />
+              <span>Prompt</span>
+            </div>
+            <p>Write a LinkedIn post about launching an AI content platform for founders.</p>
           </div>
-          <div style={styles.cardRow}>
-            <Mail size={16} color="#22c55e" />
-            <span style={{ color: "#94a3b8" }}>Cold Sales Conversion Sequence</span>
+
+          <div className="preview-output">
+            <div className="preview-line wide" />
+            <div className="preview-line" />
+            <div className="preview-line short" />
+            <p>
+              Building consistently is easier when your ideas can move from rough notes to
+              polished posts in minutes.
+            </p>
           </div>
-          <div style={styles.cardRow}>
-            {/* Custom visual anchor replaces the conflicting icon module dependency */}
-            <div style={styles.customIcon}>in</div> 
-            <span style={{ color: "#94a3b8" }}>LinkedIn Professional Authority Post</span>
+
+          <div className="preview-footer">
+            <span>
+              <Bot size={16} /> AI draft ready
+            </span>
+            <span>
+              <Mail size={16} /> Saved to history
+            </span>
           </div>
-        </motion.div>
-      </section>
+        </motion.aside>
+      </main>
     </div>
   );
 }
-
-const styles = {
-  nav: {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    padding: "20px 80px",
-    background: "rgba(5, 8, 22, 0.7)",
-    backdropFilter: "blur(10px)",
-    borderBottom: "1px solid rgba(255, 255, 255, 0.05)",
-    position: "fixed",
-    top: 0,
-    left: 0,
-    right: 0,
-    zIndex: 100,
-    width: "100%"
-  },
-  navLinks: {
-    display: "flex",
-    alignItems: "center",
-    gap: "30px",
-    fontWeight: "600",
-  },
-  hero: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "space-between",
-    padding: "180px 80px 100px 80px",
-    maxWidth: "1400px",
-    margin: "0 auto",
-    gap: "50px",
-  },
-  heroText: {
-    maxWidth: "650px",
-  },
-  badge: {
-    display: "inline-flex",
-    alignItems: "center",
-    gap: "8px",
-    background: "rgba(124, 58, 237, 0.15)",
-    color: "#a78bfa",
-    padding: "8px 16px",
-    borderRadius: "30px",
-    fontSize: "14px",
-    fontWeight: "600",
-    border: "1px solid rgba(124, 58, 237, 0.3)",
-    marginBottom: "24px",
-  },
-  title: {
-    fontSize: "54px",
-    lineHeight: "1.15",
-    fontWeight: "800",
-    letterSpacing: "-1px",
-    marginBottom: "24px",
-  },
-  subtitle: {
-    fontSize: "18px",
-    color: "#94a3b8",
-    lineHeight: "1.6",
-    marginBottom: "40px",
-  },
-  heroButtons: {
-    display: "flex",
-    gap: "20px",
-  },
-  secondaryBtn: {
-    border: "1px solid #334155",
-    padding: "14px 22px",
-    borderRadius: "14px",
-    fontWeight: "700",
-    transition: "0.3s",
-    background: "#0f172a",
-  },
-  aiCard: {
-    flex: "1",
-    maxWidth: "500px",
-    borderRadius: "24px",
-    padding: "30px",
-    display: "flex",
-    flexDirection: "column",
-    gap: "20px",
-  },
-  cardHeader: {
-    display: "flex",
-    alignItems: "center",
-    gap: "12px",
-    fontSize: "18px",
-    fontWeight: "700",
-    borderBottom: "1px solid rgba(255, 255, 255, 0.1)",
-    paddingBottom: "15px",
-  },
-  cardRow: {
-    display: "flex",
-    alignItems: "center",
-    gap: "12px",
-    background: "rgba(0, 0, 0, 0.2)",
-    padding: "14px",
-    borderRadius: "12px",
-    fontSize: "14px",
-  },
-  customIcon: {
-    background: "#2563eb",
-    color: "white",
-    fontWeight: "800",
-    fontSize: "11px",
-    width: "16px",
-    height: "16px",
-    borderRadius: "3px",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    lineHeight: "1",
-    paddingBottom: "2px"
-  }
-};
 
 export default Landing;
